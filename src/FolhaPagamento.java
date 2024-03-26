@@ -2,6 +2,11 @@ import java.util.Scanner;
 
 public class FolhaPagamento {
 
+    //calcularSalario => double
+    public static double calcularSalario(double valorHora, double qtdHoras){
+        return  valorHora * qtdHoras;
+    }
+    //calcularHoraExtra => double
 
     public static void main(String[] args) {
         /*o salário dos funcionários é calculado de acordo com a carga horária trabalhada no mês,
@@ -13,7 +18,7 @@ public class FolhaPagamento {
         System.out.println("PetShop FIAP\n\nDigite a quantidade de horas trabalhadas: ");
         quantidade = leitorNumeros.nextInt();
         double valorHora = 18;
-        double salario = valorHora * quantidade;
+        double salario = calcularSalario(valorHora, quantidade);
         //System.out.println("Salario Bruto: " + salario);
 		/*
 		 * O funcionário pode realizar horas extras no mês, para calcular o valor da hora extra você deverá solicitar
