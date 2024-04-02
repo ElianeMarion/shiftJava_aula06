@@ -30,7 +30,7 @@ public class CaixaEletronico {
                     saldo = depositar(saldo);
                     break;
                 case 2:
-
+                    System.out.println("Saque");
                     break;
                 case 3:
                     System.out.println("Saldo atual: R$ " + String.format("%.2f", saldo));
