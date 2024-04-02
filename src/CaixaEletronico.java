@@ -10,6 +10,14 @@ public class CaixaEletronico {
         System.out.println("Opção: ");
     }
 
+    public static double depositar(double saldo){
+        Scanner leitor = new Scanner(System.in);
+        System.out.println("Depósito");
+        System.out.println("Informe o valor a ser depositado");
+        double valor = leitor.nextDouble();
+        return saldo + valor;
+    }
+
     public static void main(String[] args) {
         Scanner leitor = new Scanner(System.in);
         int opcao;
@@ -19,8 +27,10 @@ public class CaixaEletronico {
             opcao = leitor.nextInt();
             switch (opcao) {
                 case 1:
+                    saldo = depositar(saldo);
                     break;
                 case 2:
+
                     break;
                 case 3:
                     System.out.println("Saldo atual: R$ " + String.format("%.2f", saldo));
