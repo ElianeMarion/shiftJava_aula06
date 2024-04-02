@@ -18,6 +18,16 @@ public class CaixaEletronico {
         return saldo + valor;
     }
 
+    public static double sacar(double saldo){
+        Scanner leitor = new Scanner(System.in);
+        System.out.println("Saque");
+        System.out.println("Informe o valor a ser sacado");
+        double valor = leitor.nextDouble();
+        if(valor <= saldo)
+            return saldo - valor;
+        return saldo;
+    }
+
     public static void main(String[] args) {
         Scanner leitor = new Scanner(System.in);
         int opcao;
@@ -30,7 +40,7 @@ public class CaixaEletronico {
                     saldo = depositar(saldo);
                     break;
                 case 2:
-                    System.out.println("Saque");
+                    saldo = sacar(saldo);
                     break;
                 case 3:
                     System.out.println("Saldo atual: R$ " + String.format("%.2f", saldo));
