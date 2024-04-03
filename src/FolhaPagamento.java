@@ -37,22 +37,28 @@ public class FolhaPagamento {
         quantidadeHorasExtras = leitorNumeros.nextDouble();
         //int x = Integer.parseInt("10");
         // (valorHora + 50% de 18) x QuantidadeHorasExtras
-        valorHorasExtras = ((valorHora * 0.5) + valorHora) * quantidadeHorasExtras;
+        valorHorasExtras = calcularHorasExtras(valorHora, quantidadeHorasExtras);
+        //valorHorasExtras = calcularHorasExtras(valorHora);
+        //valorHorasExtras = ((valorHora * 0.5) + valorHora) * quantidadeHorasExtras;
 
         double valorHoraExtraDomingo = 0;
-        System.out.println("Realizou horas extras de domingo ou feriado? ");
-        String resposta = leitorTexto.nextLine();
 
-        if(resposta.equalsIgnoreCase("Sim") || resposta.equals("s")) {
-            System.out.println("Digite a quantidade de horas extras realizadas em domingos e feriados: ");
-            quantidadeHorasExtras = leitorNumeros.nextDouble();
-            valorHoraExtraDomingo = valorHora * 2 * quantidadeHorasExtras;
-        }
+        valorHoraExtraDomingo = calcularHorasExtrasDomingo(valorHora);
 
         double salarioFinal = salario + valorHorasExtras + valorHoraExtraDomingo;
-        System.out.println("Salario Bruto: " + salario + "\nHoras Extra: " + valorHorasExtras +  "\nHoras Extra 100%: " + valorHoraExtraDomingo +
-                "\nSalario Final: " + salarioFinal);
 
+
+        double descontoINSS = calcularDescontoINSS(salarioFinal);
+
+        salarioFinal -= descontoINSS; // salarioFinal = salarioFinal - descontoINSS;
+
+        System.out.println("Salario Bruto: " + salario + "\nHoras Extra: " + valorHorasExtras +
+                "\nHoras Extra 100%: " + valorHoraExtraDomingo +
+                "\nDesconto INSS: " + descontoINSS +
+                "\nSalario Final: " + salarioFinal);
+    }
+
+    private static double calcularDescontoINSS(double salarioFinal) {
         double descontoINSS = 0;
         if (salarioFinal <= 1302) {
             //7,5%
@@ -74,8 +80,33 @@ public class FolhaPagamento {
             //877,24
             descontoINSS = 877.24;
         }
-        salarioFinal -= descontoINSS; // salarioFinal = salarioFinal - descontoINSS;
-
+        return descontoINSS;
     }
+
+    private static double calcularHorasExtrasDomingo(double valorHora) {
+        Scanner leitorTexto = new Scanner(System.in);
+        Scanner leitorNumeros = new Scanner(System.in);
+        System.out.println("Realizou horas extras de domingo ou feriado? ");
+        String resposta = leitorTexto.nextLine();
+
+        if(resposta.equalsIgnoreCase("Sim") || resposta.equals("s")) {
+            System.out.println("Digite a quantidade de horas extras realizadas em domingos e feriados: ");
+            double quantidadeHorasExtras = leitorNumeros.nextDouble();
+            return valorHora * 2 * quantidadeHorasExtras;
+        }
+        return 0;
+    }
+
+    private static double calcularHorasExtras(double valorHora, double quantidadeHorasExtras) {
+        return ((valorHora * 0.5) + valorHora) * quantidadeHorasExtras;
+    }
+
+    public static double calcularHorasExtras(double valorHora){
+        Scanner leitorNumeros = new Scanner(System.in);
+        System.out.println("Digite a quantidade de horas extras realizadas exceto domingos e feriados: ");
+        double quantidadeHorasExtras = leitorNumeros.nextDouble();
+        return ((valorHora * 0.5) + valorHora) * quantidadeHorasExtras;
+    }
+
 
 }
